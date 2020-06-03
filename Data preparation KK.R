@@ -6,6 +6,14 @@
 
 Broods <- read.csv("Broods_day_desertion.csv")
 
+install.packages("easypackages")
+library(easypackages)
+
+## Installing and loading necessary packages
+packages("dplyr", "ggplot2", "smart", "magrittr", "MASS",
+         "data.table", "ggpubr", "lmodel2", "tidyr",
+         "lubridate", "gtools")
+
 library(dplyr)
 library(ggplot2)
 library(smatr)
