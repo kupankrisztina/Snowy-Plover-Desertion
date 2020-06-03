@@ -3,11 +3,17 @@
 
 ####### Figures #######
 
-Desertion <- read.csv("Broods_desertion_final.csv", header = TRUE)
-library(dplyr)
-Desertion_broods <- Desertion %>% group_by(Nest_ID) %>% slice(which.min(Brood_age)) #262
+install.packages("easypackages")
+library(easypackages)
 
-Desertion <- read.csv("Broods_desertion_final_no_est.csv", header = TRUE)
+packages("dplyr", "plyr", "ggplot2", "RColorBrewer", 
+         "cowplot", "bayesplot", "rstanarm", "ggplot2", "MCMCvis", 
+         "tidyr", "dplyr", "reshape2", "data.table", 
+         "tidyverse", "patternplot", "png")
+
+Desertion <- read.csv("Broods_desertion_final.csv", header = TRUE)
+Desertion_broods <- Desertion %>% group_by(Nest_ID) %>% slice(which.min(Brood_age)) #262
+# Desertion <- read.csv("Broods_desertion_final_no_est.csv", header = TRUE)
 
 
 ####### Data processing and statistical analysis (Figure S1) #######
