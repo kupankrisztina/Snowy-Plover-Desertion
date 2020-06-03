@@ -5,6 +5,12 @@ Desertion <- read.csv("Broods_desertion_final.csv", header = TRUE)
 
 # Desertion <- read.csv("Broods_desertion_final_no_est.csv", header = TRUE)
 
+install.packages("easypackages")
+library(easypackages)
+
+packages("dplyr", "plyr", "car", "MASS", "grid", "vcd",
+         "AER", "mod2", "pscl")
+
 ####### I.	Female brood care #######
 
 library(dplyr)
@@ -164,6 +170,9 @@ AIC(mod1)
 
 
 ####### II. Predictors of the length of female brood care #######
+
+packages("dplyr", "car", "Matrix", "lme4", "MASS", "mlmRev",
+        "rstan", "rstanrm", "arm", "shinystan", "reshape2")
 
 library(dplyr)
 library(car)
@@ -329,6 +338,8 @@ pairs(mod_desertion, pars = c("b", "sigma_year", "sigma_year"))
 
 
 ####### III.	Termination of care and chick mortality #######
+
+packages("dplyr", "survival")
 
 library(dplyr)
 library(survival)
