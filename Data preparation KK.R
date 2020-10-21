@@ -317,7 +317,7 @@ write.csv(Broods3, "Broods_day_desertion3.csv")
 
 ### Adding relative hatching date
 
-Broods3 <- read.csv("Broods_desertion3.csv")
+Broods3 <- read.csv("Broods_day_desertion3.csv")
 
 Broods3_ind <- Broods3 %>% group_by(Nest_ID) %>% slice(which.min(Brood_age))# 331
 
