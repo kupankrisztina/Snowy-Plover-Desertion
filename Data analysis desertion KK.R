@@ -279,14 +279,21 @@ CH_CI_max <- unlist(CH_CI_max)
 
 # Manip
 
-Desertion$Manip_num  <- ifelse(Desertion$Manipulation == "M", 1, 0)
-Manip <- Desertion[,c("Nest_ID", "Manip_num", "Brood_age")]
+Desertion$Manip_type2 <- ifelse(Desertion$Manip_type == "CFD2" | Desertion$Manip_type == "CFD3" |
+                                  Desertion$Manip_type == "CFD4", "CFInc", Desertion$Manip_type)
+Desertion$Manip_type2 <- as.factor(Desertion$Manip_type2)
+
+Desertion$Manip_type2 <- ifelse(Desertion$Manip_type2 == "U", 0, ifelse(Desertion$Manip_type2 == "CF2", 1, 
+                                                                 ifelse(Desertion$Manip_type2 == "CFInc", 2, 
+                                                                 ifelse(Desertion$Manip_type2 == "CFall",
+                                                                    3, Desertion$Manip_type2))))
+Manip <- Desertion[,c("Nest_ID", "Manip_type2", "Brood_age")]
 Manip <- Manip %>% group_by(Nest_ID) %>% slice(which.min(Brood_age))
-Manip <- as.list(Manip["Manip_num"])
+Manip <- as.list(Manip["Manip_type2"])
 Manip <- unlist(Manip)
 
 
-## Female ID as numeric string - random variable
+# Female ID as numeric string - random variable
 
 Desertion$Female_ID <- as.factor(Desertion$Female_ID)
 levels(Desertion$Female_ID) <- 1:length(levels(Desertion$Female_ID))
@@ -299,7 +306,7 @@ Female_ID <- as.numeric(unlist(Female_ID))
 
 NFemale <- as.numeric(length(unique(Female_ID)))
 
-## Year as numeric string - random variable
+# Year as numeric string - random variable
 
 Desertion$Year <- as.factor(Desertion$Year)
 levels(Desertion$Year) <- 1:length(levels(Desertion$Year))
