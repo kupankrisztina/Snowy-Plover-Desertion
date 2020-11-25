@@ -745,10 +745,35 @@ write.csv(Chicks_ch, "Chicks_desertion2.csv")
 
 Chicks_ch <- read.csv("Chicks_desertion2.csv")
 Broods5 <- read.csv("Broods_desertion_final.csv")
+Broods5 <- read.csv("Broods_desertion_final_no_est.csv")
+BirdSOC <- read.csv("BirdSOC.csv")
+
+# Adding manipulation type
+BirdSOC$Nest_ID <- paste(BirdSOC$year, paste(BirdSOC$site, BirdSOC$nest, sep = ""), sep = "_")
+Broods5$Manip_type <- BirdSOC$type[match(Broods5$Nest_ID, BirdSOC$Nest_ID)]
 
 Broods5$Mean_brood_CI <- Chicks_ch$Mean_brood_CI[match(Broods5$Nest_ID, Chicks_ch$Nest_ID)]
 
 Broods5$Max_chick_CI <- Chicks_ch$Max_chick_CI[match(Broods5$Nest_ID, Chicks_ch$Nest_ID)]
 
+Broods5$Brood_max_size = rowSums(is.na(Broods5[,c("Chick1_ID", "Chick2_ID","Chick3_ID","Chick4_ID","Chick5_ID")]))
+
+Broods5$Brood_max_size <- 5 - Broods5$Brood_max_size
+
+Broods5_no_manip <- subset(Broods5, Manip_type == U)
+
+Broods5$Chick1_change_lead <- NULL
+Broods5$Chick2_change_lead <- NULL
+Broods5$Chick3_change_lead <- NULL
+Broods5$Chick4_change_lead <- NULL
+Broods5$Chick5_change_lead <- NULL
+
+Broods5$Chick1_pres_lead <- NULL
+Broods5$Chick2_pres_lead <- NULL
+Broods5$Chick3_pres_lead <- NULL
+Broods5$Chick4_pres_lead <- NULL
+Broods5$Chick5_pres_lead <- NULL
+
 write.csv(Broods5, "Broods_desertion_final.csv")
-# write.csv(Broods5, "Broods_desertion_final_no_est.csv")
+write.csv(Broods5, "Broods_desertion_final_no_est.csv")
+write.csv(Broods5_no_manip, "Broods_desertion_final_no_manip.csv")
