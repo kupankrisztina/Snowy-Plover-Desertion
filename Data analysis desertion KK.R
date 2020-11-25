@@ -189,6 +189,8 @@ library(reshape2)
 # Presence/absence matrix
 
 Desertion <- read.csv("Broods_desertion_final.csv")
+# Desertion <- read.csv("Broods_desertion_final_no_est.csv")
+# Desertion <- read.csv("Broods_desertion_final_no_manip.csv")
 
 y_des<- Desertion[,c("Nest_ID", "Female_care_full", "Brood_age")]
 y_des <- acast(y_des, Nest_ID ~ Brood_age, value.var="Female_care_full")
@@ -334,6 +336,7 @@ mod_desertion <- stan("Model_desertion_Kupan.stan", data=datax_des,
 
 saveRDS(mod_desertion, "mod_des_desertion.rds")
 # saveRDS(mod_desertion, "mod_des_desertion_no_est.rds")
+# saveRDS(mod_desertion, "mod_des_desertion_no_manip.rds")
 # saveRDS(mod_desertion, "mod_des_desertion_manip.rds")
 
 print(mod_desertion, pars = c("b", "sigma_female", "sigma_year"), probs = c(0.025, 0.5, 0.975))
